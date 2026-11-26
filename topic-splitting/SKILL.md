@@ -40,8 +40,9 @@ the files.
 Every launch follows `CLAUDE.md`'s rules on delegation and sub-agent models;
 the model hints below are where this flow usually lands, not a substitute for
 weighing them. The pieces of one topic are not topics of their own: they are
-sub-agent calls (`Agent` in Claude Code, `task` in OpenCode), inside herdr
-too, unless the user asks for visible sessions.
+sub-agent calls (`Agent` in Claude Code, `task` in OpenCode, `Agent` in pi
+with a sub-agent extension), inside herdr too, unless the user asks for
+visible sessions.
 
 ## One vertical slice by default
 
@@ -121,7 +122,8 @@ fit:
   declares, the way it declares it, and the provider still matches the
   contract — for an HTTP API, its generated document still matches the
   contract's. Review is the client's review command on each PR:
-  `/code-review` in Claude Code, `/review` in OpenCode.
+  `/code-review` in Claude Code, `/review` in OpenCode; a client without
+  one, pi among them, gets a sub-agent briefed to review that PR.
 
 Implementation models are a judgement call per side: Sonnet fits a side that
 is mostly applying the contract and known conventions, Opus a side with real
@@ -142,7 +144,8 @@ green against the contract, and the feature still broken end to end.
   adds.
 - It reports failures; it does not fix them across the stack. The carrying
   session routes each one to the agent that owns that side: `SendMessage`
-  in Claude Code, a `task` call resuming its `task_id` in OpenCode.
+  in Claude Code, a `task` call resuming its `task_id` in OpenCode, an
+  `Agent` call resuming its agent id in pi.
 - Sonnet to run the flows and report; Opus when the job becomes debugging a
   failure with no obvious cause.
 
