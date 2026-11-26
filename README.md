@@ -58,6 +58,15 @@ git fetch origin
 git checkout -f main
 ```
 
+#### pi, as `~/.agents/skills`
+
+pi reads the user's skills from the cross-client `~/.agents/skills`, not
+from `~/.claude/skills`. Clone the repository there:
+
+```bash
+git clone git@github.com:leroyguillaume/skills.git ~/.agents/skills
+```
+
 #### Any Agent Skills client, with pollen
 
 [pollen](https://groupbees.github.io/pollen/) deploys skills from a git
@@ -97,7 +106,7 @@ to load (`TRIGGER`) and when to skip (`SKIP`). Most clients also let you
 invoke one explicitly — `/<skill-name>` in Claude Code, `/skill:<skill-name>`
 in pi.
 
-To pull new revisions in a clone:
+To pull new revisions in a clone, `~/.agents/skills` for pi:
 
 ```bash
 git -C ~/.claude/skills pull --ff-only
