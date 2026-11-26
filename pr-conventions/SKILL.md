@@ -79,7 +79,8 @@ retargets the MRs based on it onto the parent's own target branch.
 
 GitHub has no per-PR flag: the repo's head-branch auto-deletion does it
 (`github-repo-settings`). On either platform, a branch the merge left behind
-goes in `CLAUDE.md`'s post-merge cleanup.
+goes in the post-merge cleanup of the global instructions (`CLAUDE.md` or
+`AGENTS.md`).
 
 ## A stacked PR is opened as a draft
 

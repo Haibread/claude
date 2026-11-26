@@ -19,12 +19,12 @@ description: >-
 
 # Delegating through herdr
 
-`CLAUDE.md` decides whether a session carries a topic or pilots. Inside
-herdr, every non-trivial topic it delegates goes to a real session of the
-client the main session runs in, in a terminal of its own, which the user
-sees appear and steers directly, and can resume later; this skill says how.
-A tab costs the user's attention, and earns it only where there is a topic
-of its own to follow.
+The global instructions (`CLAUDE.md` or `AGENTS.md`) decide whether a session
+carries a topic or pilots. Inside herdr, every non-trivial topic it delegates
+goes to a real session of the client the main session runs in, in a terminal
+of its own, which the user sees appear and steers directly, and can resume
+later; this skill says how. A tab costs the user's attention, and earns it
+only where there is a topic of its own to follow.
 
 How one topic splits into pieces, agents and PRs is `topic-splitting`'s. Its
 pieces are sub-agent calls, and get tabs of their own only when the user asks
@@ -117,9 +117,9 @@ written like a peer's.
      name, otherwise ask the user in one line. When none does, create one
      labelled with the repo's name.
 
-3. **Pick the model** as for any sub-agent, under `CLAUDE.md`'s rule on
-   sub-agent models: weigh Sonnet against Opus, Opus when in doubt, and state
-   the choice in one line before launching. It goes to the client as
+3. **Pick the model** as for any sub-agent, under the global instructions'
+   rule on sub-agent models: weigh Sonnet against Opus, Opus when in doubt,
+   and state the choice in one line before launching. It goes to the client as
    `--model`, never left to its default.
 
 4. **Start the client** with that `--model`, in the main session's
@@ -224,8 +224,9 @@ The user tells the main session, not the tab. Once
 
 1. **Close the tab** this flow created for it, before the worktree goes,
    since the agent's cwd lives there.
-2. **Remove its worktree and branches**, under `CLAUDE.md`'s post-merge
-   cleanup; `git worktree list` finds the worktree from the PR's branch.
+2. **Remove its worktree and branches**, under the global instructions'
+   post-merge cleanup; `git worktree list` finds the worktree from the PR's
+   branch.
 3. **Bring the main checkout up to date** (`git pull --ff-only` on the
    default branch), so the user tests what merged, and restart the app if
    the main session runs it.

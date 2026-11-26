@@ -94,5 +94,5 @@ rendered page.
 
 Every badge, button or table of a kind looks the same; a variant (danger,
 small) is a named modifier defined once, not a restyle at the call site. When
-repeated markup becomes a shared component is the rule of three in
-`CLAUDE.md`.
+repeated markup becomes a shared component is the rule of three in the global
+instructions (`CLAUDE.md` or `AGENTS.md`).

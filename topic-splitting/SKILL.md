@@ -9,20 +9,20 @@ description: >-
   TRIGGER when: the session carrying a topic is about to split it across
   several agents or PRs; a topic touches both sides of such an interface;
   user asks how to split work across agents.
-  SKIP when: deciding which session carries a topic (`CLAUDE.md`, and
-  `herdr-delegation` inside herdr); the work stays on one side; running as
-  a sub-agent, which cannot launch agents of its own. Load
+  SKIP when: deciding which session carries a topic (the global
+  instructions, and `herdr-delegation` inside herdr); the work stays on one
+  side; running as a sub-agent, which cannot launch agents of its own. Load
   `herdr-delegation` alongside when the pieces run as visible sessions.
 ---
 
 # Splitting a topic
 
-`CLAUDE.md` decides which session carries a topic — the one it started in,
-or a session of its own (`herdr-delegation`) — and splits it across agents
-only when the pieces ship as separate PRs. This skill says how the carrying
-session does that, whichever it is, for the case that splits most often:
-work that spans two sides of an interface, a **provider** that declares it
-and a **consumer** that calls it.
+The global instructions (`CLAUDE.md` or `AGENTS.md`) decide which session
+carries a topic — the one it started in, or a session of its own
+(`herdr-delegation`) — and splits it across agents only when the pieces ship
+as separate PRs. This skill says how the carrying session does that, whichever
+it is, for the case that splits most often: work that spans two sides of an
+interface, a **provider** that declares it and a **consumer** that calls it.
 
 | Interface | Provider | Consumer | Contract |
 |---|---|---|---|
@@ -37,20 +37,20 @@ no provider or consumer agent definition either: a "backend agent" is a
 general agent briefed on the backend directory, and its conventions come with
 the files.
 
-Every launch follows `CLAUDE.md`'s rules on delegation and sub-agent models;
-the model hints below are where this flow usually lands, not a substitute for
-weighing them. The pieces of one topic are not topics of their own: they are
-sub-agent calls (`Agent` in Claude Code, `task` in OpenCode, `Agent` in pi
-with a sub-agent extension), inside herdr too, unless the user asks for
-visible sessions.
+Every launch follows the global instructions' rules on delegation and
+sub-agent models; the model hints below are where this flow usually lands, not
+a substitute for weighing them. The pieces of one topic are not topics of
+their own: they are sub-agent calls (`Agent` in Claude Code, `task` in
+OpenCode, `Agent` in pi with a sub-agent extension), inside herdr too, unless
+the user asks for visible sessions.
 
 ## One vertical slice by default
 
-**Work that touches both sides is built in one go, provider and consumer,
-end to end**, in one worktree, on one branch, as one PR — by the carrying
-session, or by one agent when delegating pays under `CLAUDE.md`. It builds
-the provider's side, then the consumer against the real thing, and is the
-one place where the whole feature is seen working.
+**Work that touches both sides is built in one go, provider and consumer, end
+to end**, in one worktree, on one branch, as one PR — by the carrying session,
+or by one agent when delegating pays under the global instructions. It builds
+the provider's side, then the consumer against the real thing, and is the one
+place where the whole feature is seen working.
 
 Split only when the work is big on both sides at once — several endpoints
 *and* several screens, several messages *and* several handlers — or when the
@@ -155,8 +155,8 @@ checkout.
 ## Roles not to create
 
 - **Architect or product manager**: that is the carrying session and the user.
-- **Documentation writer**: docs ship with the change they describe, under
-  `CLAUDE.md`'s documentation rules, so each agent updates its own.
+- **Documentation writer**: docs ship with the change they describe, under the
+  global instructions' documentation rules, so each agent updates its own.
 - **DevOps**: a chart, a Dockerfile or a CI change is a separate change with
   its own skills, not a role in this topic.
 - **Database administrator**: migrations belong to the provider agent, which
