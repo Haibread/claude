@@ -10,11 +10,11 @@ session only carries the conventions that apply to the work in front of it. A
 skill can also be a workflow that runs only when asked for by name: `council`
 puts a high-stakes decision through independent advisors and a verdict. The
 skills follow the open specification, so any client that reads it — Claude
-Code, Cursor, Codex, Gemini CLI, Copilot, OpenCode, … — can use them.
+Code, Cursor, Codex, Gemini CLI, Copilot, OpenCode, pi, … — can use them.
 
 The skills that drive the client itself — delegating to a session in a herdr
 tab, splitting a topic across sub-agents — launch the client they run in:
-`claude` from Claude Code, `opencode` from OpenCode.
+`claude` from Claude Code, `opencode` from OpenCode, `pi` from pi.
 
 The global instructions that go with them, for Claude Code and OpenCode, live
 in [claude-config](https://github.com/leroyguillaume/claude-config). Every
@@ -28,8 +28,8 @@ Everything here is Markdown that a client reads; there is nothing to build.
 
 - `git`.
 - An Agent Skills client, such as
-  [Claude Code](https://docs.claude.com/en/docs/claude-code) or
-  [OpenCode](https://opencode.ai/docs/).
+  [Claude Code](https://docs.claude.com/en/docs/claude-code),
+  [OpenCode](https://opencode.ai/docs/) or [pi](https://pi.dev).
 - On Windows, [Git for Windows](https://gitforwindows.org): the commands in
   the skills are bash, and run in its Git Bash.
 - [pollen](https://github.com/groupbees/pollen), to deploy the skills into
@@ -58,12 +58,21 @@ git fetch origin
 git checkout -f main
 ```
 
+#### pi, as `~/.agents/skills`
+
+pi reads the user's skills from the cross-client `~/.agents/skills`, not
+from `~/.claude/skills`. Clone the repository there:
+
+```bash
+git clone git@github.com:leroyguillaume/skills.git ~/.agents/skills
+```
+
 #### Any Agent Skills client, with pollen
 
 [pollen](https://groupbees.github.io/pollen/) deploys skills from a git
 repository into the directories the clients read. This `pollen.yaml` installs
 every skill for the current user, in both Claude Code's directory and the
-cross-client `~/.agents/skills/`:
+cross-client `~/.agents/skills/`, which pi reads:
 
 ```yaml
 targets:
@@ -94,9 +103,10 @@ says how to raise it.
 The skills take effect the next time a client starts. They load
 automatically when their triggers match: each `SKILL.md` frontmatter says when
 to load (`TRIGGER`) and when to skip (`SKIP`). Most clients also let you
-invoke one explicitly — `/<skill-name>` in Claude Code.
+invoke one explicitly — `/<skill-name>` in Claude Code, `/skill:<skill-name>`
+in pi.
 
-To pull new revisions in a clone:
+To pull new revisions in a clone, `~/.agents/skills` for pi:
 
 ```bash
 git -C ~/.claude/skills pull --ff-only

@@ -34,8 +34,9 @@ one line and wait for a yes. Never start it unprompted.
 The advisors see only what you give them, so the framing decides the quality
 of the run.
 
-- Gather the context the decision depends on: the project's `CLAUDE.md`,
-  `ARCHITECTURE.md`, `docs/adr/`, the relevant code, and what the user said.
+- Gather the context the decision depends on: the project's `CLAUDE.md` or
+  `AGENTS.md`, `ARCHITECTURE.md`, `docs/adr/`, the relevant code, and what the
+  user said.
 - Write a **neutral** brief: the decision, the options on the table, the
   constraints (budget, team, deadlines, existing commitments), and what
   success looks like. No leaning — do not reveal which option the user or you

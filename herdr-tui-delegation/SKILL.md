@@ -3,7 +3,8 @@ name: herdr-tui-delegation
 description: >-
   Herdr TUI commands (`herdr pane`, `herdr workspace`, `herdr tab`,
   `herdr agent`) to find the target repo's workspace, then launch, brief,
-  wait on and read a visible `claude` or `opencode` in a tab of its own.
+  wait on and read a visible `claude`, `opencode` or `pi` in a tab of its
+  own.
   TRIGGER when: `herdr-delegation` detected `herdr` (`HERDR_ENV=1`, no
   `HC_TERMINAL_ID`) and a visible session is being launched, briefed, waited
   on, read or unblocked.
@@ -67,8 +68,8 @@ tool, never through another tab.
    ```
 
 4. **Start the client** in the tab's pane (`.result.root_pane.pane_id`,
-   from either command), `--kind claude` or `--kind opencode` as
-   `herdr-delegation` picks. Flags after `--` go to the client:
+   from either command), `--kind claude`, `--kind opencode` or `--kind pi`
+   as `herdr-delegation` picks. Flags after `--` go to the client:
 
    ```bash
    herdr agent start fix-login-timeout --kind claude --pane <pane-id> -- --model <model>
@@ -91,7 +92,7 @@ tool, never through another tab.
    herdr tab rename "$HERDR_TAB_ID" "fix-login-timeout (#123)"
    ```
 
-6. **Under OpenCode, read the report** once it returns:
+6. **Under OpenCode and pi, read the report** once it returns:
 
    ```bash
    herdr agent read fix-login-timeout --source recent-unwrapped --lines 200 |
@@ -102,7 +103,7 @@ tool, never through another tab.
 
 - **Read its screen** with `herdr agent read <name> --source
   recent-unwrapped`.
-- **Relay into it**, under OpenCode, as a background command:
+- **Relay into it**, under OpenCode and pi, as a background command:
   `herdr agent prompt <name> "[relay] <text>" --wait`.
 - **Blocked**: `agent start` returns `agent_not_ready`, or a wait returns
   `blocked`. Never answer it with `herdr pane send-keys` or `send-text`.
@@ -113,4 +114,5 @@ tool, never through another tab.
   tab, pane or agent it did not create, and never `herdr server stop`.
 - **Reopen it for a follow-up** with a new tab in the same worktree, as in
   the launch, `--label` carrying the PR number when it has one, and `-- --model <model> --continue` to `herdr agent start`,
-  or `--session <id>` in place of `--continue` under OpenCode.
+  or `--session <id>` in place of `--continue` under OpenCode; pi takes
+  `--continue`.

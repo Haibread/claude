@@ -2,8 +2,8 @@
 name: herdr-core-delegation
 description: >-
   herdr-core commands (`hc run`, `hc send`, `hc wait`) to launch, brief, wait
-  on and read a visible `claude` or `opencode` in a terminal of its own,
-  shown as a tab by herdr-app.
+  on and read a visible `claude`, `opencode` or `pi` in a terminal of its
+  own, shown as a tab by herdr-app.
   TRIGGER when: `herdr-delegation` detected `hc` (`HC_TERMINAL_ID` set, the
   terminal has no parent) and a visible session is being launched, briefed,
   waited on, read or unblocked.
@@ -34,10 +34,11 @@ hc see the agent as `env`.
 
 1. **Pick a name** that `hc ls` does not already show.
 
-2. **Start the client**, `claude` or `opencode` as `herdr-delegation`
-   picks, with `hc run`, in the directory and space it picks, and wait until
-   it is ready for input, since a brief sent earlier can be dropped. Flags
-   after the client go to it:
+2. **Start the client**, `claude`, `opencode` or `pi` as
+   `herdr-delegation` picks, with `hc run`, in the directory and space it
+   picks, and wait until it is ready for input, since a brief sent earlier
+   can be dropped. Flags after the client go to it, never one for a
+   one-shot print mode such as `pi -p`: the terminal is there to be steered.
 
    ```bash
    hc get "$HC_TERMINAL_ID" --json | jq -r '.labels["herdr.space"] // empty'
@@ -75,7 +76,7 @@ hc see the agent as `env`.
    `hc --skill` documents for the name herdr-app shows. When it gives none,
    the brief leaves the rename out.
 
-4. **Under OpenCode, read the report** once it returns:
+4. **Under OpenCode and pi, read the report** once it returns:
 
    ```bash
    hc read fix-login-timeout --lines 200 | grep -o 'REPORT: .*' | tail -n 1
@@ -84,7 +85,7 @@ hc see the agent as `env`.
 ## While it runs
 
 - **Read its screen** with `hc read <name> --lines 200`.
-- **Relay into it**, under OpenCode, as a background command:
+- **Relay into it**, under OpenCode and pi, as a background command:
   `hc send --wait --timeout 3600 <name> "[relay] <text>"`.
 - **Blocked**: a wait returns `blocked`. Never answer it with `hc keys` or
   `hc send --force`. Once the user says it is unblocked, wait again with
@@ -94,7 +95,8 @@ hc see the agent as `env`.
   about cleaning up helpers once they report.
 - **Reopen it for a follow-up** with `hc run` in the same worktree, as in the
   launch, ending in `-- claude --model <model> --continue`, or
-  `-- opencode --model <model> --session <id>`.
+  `-- opencode --model <model> --session <id>`, or
+  `-- pi --model <model> --continue`.
 - **Never touch a terminal it did not create**: `hc ls` lists the user's
   other live work too.
 - **Never** `hc server stop` or `restart`, which hit every terminal and park
